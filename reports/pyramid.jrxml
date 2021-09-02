@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.10.0.final using JasperReports Library version 6.10.0-unknown  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="pyramid" language="javascript" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="af19a009-a534-47f2-95e4-1cddcf04ff84">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sample DB"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT ID population ,LOWER(CITY) region FROM ADDRESS limit 5]]>
+	</queryString>
+	<field name="region" class="java.lang.String"/>
+	<field name="population" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="560" splitType="Stretch">
+			<componentElement>
+				<reportElement x="0" y="90" width="540" height="470" uuid="8457279e-2dfc-4ca4-9953-3fbbdf33c4a3"/>
+				<cvc:customvisualization xmlns:cvc="http://www.jaspersoft.com/cvcomponent" xsi:schemaLocation="http://www.jaspersoft.com/cvcomponent http://www.jaspersoft.com/cvcomponent/component.xsd" evaluationTime="Report" onErrorType="Icon">
+					<cvc:itemProperty name="script" value="pyramid/pyramid.min.js"/>
+					<cvc:itemProperty name="css" value="pyramid/pyramid.css"/>
+					<cvc:cvData>
+						<dataset/>
+						<cvc:item>
+							<cvc:itemProperty name="region">
+								<valueExpression><![CDATA[$F{region}]]></valueExpression>
+							</cvc:itemProperty>
+							<cvc:itemProperty name="population">
+								<valueExpression><![CDATA[$F{population}]]></valueExpression>
+							</cvc:itemProperty>
+						</cvc:item>
+					</cvc:cvData>
+					<cvc:cvData>
+						<cvc:item>
+							<cvc:itemProperty name="india" value="100"/>
+						</cvc:item>
+						<cvc:item>
+							<cvc:itemProperty name="newzeland" value="200"/>
+						</cvc:item>
+						<cvc:item>
+							<cvc:itemProperty name="australia" value="300"/>
+						</cvc:item>
+					</cvc:cvData>
+				</cvc:customvisualization>
+			</componentElement>
+			<staticText>
+				<reportElement x="0" y="0" width="400" height="40" uuid="bf8f9779-d623-456c-bbd4-50380fc187ea"/>
+				<textElement>
+					<font size="33"/>
+				</textElement>
+				<text><![CDATA[Circle Packing]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="40" width="555" height="40" uuid="aea4388f-a1b1-4507-a58a-ca7258bd16b2"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Demo Pyramid ]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band splitType="Stretch">
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

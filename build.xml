@@ -1,0 +1,129 @@
+<project name="customvisualization" default="test" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
+
+	<description>Shows how the chart themes could be used to change the look and feel of all chart types.</description>
+
+	<property name="sample.dir" value="customvisualization"/>
+	<property name="sample.base.name" value="CustomVisualization" />
+	<property name="sample.app.name" value="${sample.base.name}App" />
+	<property name="sample.report.name" value="LeafletMarkers" />
+
+	<path id="project-classpath">
+		<path refid="project-lib"/>
+		<pathelement location="../../../build/classes"/>
+	</path>
+	
+	<path id="sample-classpath">
+		<pathelement location="./build/classes"/>
+		<pathelement location="./build/components"/>
+		<pathelement location="../../../ext/fonts"/>
+		<path refid="project-classpath"/>
+	</path>
+
+	<target name="prepare-compile-classpath">
+		<ant dir="../../../" target="compile"/>
+		<ivy:configure file="../../../ivysettings.xml" override="true"/>
+		<ivy:resolve file="./ivy.xml" log="download-only" conf="compile"/> 
+		<ivy:cachepath pathid="project-lib"/> 
+	</target>
+
+	<target name="prepare-test-classpath">
+		<ant dir="../../../" target="compile"/>
+		<ivy:configure file="../../../ivysettings.xml" override="true"/>
+		<ivy:resolve file="./ivy.xml" log="download-only" conf="test"/> 
+		<ivy:cachepath pathid="project-lib"/> 
+	</target>
+
+	<target name="javac" description="Compiles the java source files of the test application." depends="prepare-compile-classpath">
+		<mkdir dir="./build/classes"/> 
+		<javac srcdir="../../../ext/custom-visualization/src/main/java" destdir="./build/classes" debug="true" optimize="false" target="1.8" source="1.8"
+				encoding="UTF-8" includeantruntime="false">
+			<classpath refid="sample-classpath"/>
+			<compilerarg value="-Xlint:-unchecked"/>
+			<compilerarg value="-Xlint:deprecation"/>
+			<compilerarg value="-Xlint:-options"/>
+		</javac>
+		<copy todir="./build/classes">
+			<fileset dir="../../../ext/custom-visualization/src/main/resources">
+				<include name="**/*.properties"/>
+				<include name="**/*.js"/>
+				<include name="**/*.vm"/>
+				<include name="**/*.xsd"/>
+				<include name="**/*.png"/>
+			</fileset>
+		</copy>
+		<ant dir="../" target="javac"/>
+	</target>
+
+	<target name="components" description="Builds the components.">
+		<antcall target="build-component">
+			<param name="cvc.component.name" value="d3_circle_packing"/>
+		</antcall>
+		<antcall target="build-component">
+			<param name="cvc.component.name" value="pyramid"/>
+		</antcall>
+		<antcall target="build-component">
+			<param name="cvc.component.name" value="d3_treemap"/>
+		</antcall>
+		<copy todir="./build/components">
+			<fileset dir="components">
+				<include name="**/*.css"/>
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="build-component" depends="prepare-test-classpath">
+		<java classname="org.mozilla.javascript.tools.shell.Main" fork="true" dir="components/${cvc.component.name}">
+			<arg value="-opt"/>
+			<arg value="-1"/>
+			<arg value="../../libraries/requirejs/r-2.3.5.js"/>
+			<arg value="-o"/>
+			<arg value="build.js"/>
+			<arg value="out=../../build/components/${cvc.component.name}/${cvc.component.name}.min.js"/>
+			<classpath refid="sample-classpath"/>
+		</java>
+	</target>
+
+	<target name="compile" description="Compiles the XML report design and produces the .jasper file.">
+		<ant dir="../" target="compile"/>
+	</target>
+
+	<target name="fill" description="Fills the compiled report design with data and produces the .jrprint file." depends="prepare-test-classpath">
+		<java classname="${sample.app.name}" fork="true">
+			<arg value="fill"/>
+			<classpath refid="sample-classpath"/>
+		</java>
+	</target>
+
+	<target name="print" description="Sends the report in the .jrprint file to the printer." depends="prepare-test-classpath">
+		<java classname="${sample.app.name}" fork="true">
+			<arg value="print"/>
+			<classpath refid="sample-classpath"/>
+		</java>
+	</target>
+
+	<target name="pdf" description="Generates a PDF version of the report by converting the .jrprint file." depends="prepare-test-classpath">
+		<java classname="${sample.app.name}" fork="true">
+			<arg value="pdf"/>
+			<classpath refid="sample-classpath"/>
+		</java>
+	</target>
+	
+	<target name="clean" description="Deletes all the generated files.">
+		<ant dir="../" target="clean-sample"/>
+	</target>
+	
+	<target name="test" description="Runs the sample." depends="prepare-test-classpath">
+		<echo message="======================================="/>
+		<echo message=" Custom Visualization Component Sample"/>
+		<echo message="======================================="/>
+		<antcall target="clean" />
+		<antcall target="javac" />
+		<antcall target="components"/>
+		<antcall target="compile" />
+		<java classname="${sample.app.name}" fork="true">
+			<arg value="test"/>
+			<classpath refid="sample-classpath"/>
+		</java>
+	</target>
+	
+</project>

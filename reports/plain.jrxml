@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.10.0.final using JasperReports Library version 6.10.0-unknown  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="HighCharts_Sparklines" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="af19a009-a534-47f2-95e4-1cddcf04ff84">
+	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver-pro/"/>
+	<property name="ireport.jasperserver.user" value="jasperadmin|"/>
+	<property name="ireport.jasperserver.report.resource" value="/public/Samples/Reports/CVC/HighCharts_Sparklines_files/main_jrxml"/>
+	<property name="ireport.jasperserver.reportUnit" value="/public/Samples/Reports/CVC/HighCharts_Sparklines"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<queryString language="SQL">
+		<![CDATA[]]>
+	</queryString>
+	<field name="SHIPCOUNTRY" class="java.lang.String"/>
+	<field name="T" class="java.lang.Long"/>
+	<field name="OY" class="java.lang.Integer"/>
+	<field name="OM" class="java.lang.Integer"/>
+	<group name="Country">
+		<groupExpression><![CDATA[$F{SHIPCOUNTRY}]]></groupExpression>
+		<groupHeader>
+			<band height="222">
+				<componentElement>
+					<reportElement x="100" y="20" width="350" height="150" uuid="8457279e-2dfc-4ca4-9953-3fbbdf33c4a3"/>
+					<cvc:customvisualization xmlns:cvc="http://www.jaspersoft.com/cvcomponent" xsi:schemaLocation="http://www.jaspersoft.com/cvcomponent http://www.jaspersoft.com/cvcomponent/component.xsd" evaluationTime="Group" evaluationGroup="Country">
+						<cvc:itemProperty name="script" value="plain.min.js"/>
+					</cvc:customvisualization>
+				</componentElement>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="74" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="400" height="40" uuid="33efe829-b23f-4c8d-86fe-242aae88cd57"/>
+				<textElement>
+					<font size="33"/>
+				</textElement>
+				<text><![CDATA[Plain Sample]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="40" width="555" height="30" uuid="70042cf9-ff29-4663-9eeb-ac91fdbe7379"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[A rectangle drawn without using any Javascript library]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
